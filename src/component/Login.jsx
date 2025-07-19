@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './Login.css';
+import './login.css';
 import { FaEnvelope, FaLock, FaUserShield } from 'react-icons/fa';
 
 const Login = () => {

@@ -39,7 +39,7 @@ const Dashboard = () => {
           <button
             key={f}
             onClick={() => setFilter(f)}
-            className={`px-4 py-2 rounded-full font-semibold border transition ${
+            className={`px-4 py-2 rounded-full text-black font-semibold border transition ${
               filter === f
                 ? "bg-blue-600 text-white"
                 : "bg-white text-blue-700 border-blue-600"
