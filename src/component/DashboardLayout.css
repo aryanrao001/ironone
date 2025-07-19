@@ -1,0 +1,116 @@
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  background-color: #2575fc;
+  color: white;
+  transition: all 0.3s ease;
+  padding: 15px 10px;
+  z-index: 1001;
+}
+
+/* Main area below navbar */
+.main-area {
+  padding-top: 54px;
+  transition: margin-left 0.3s ease;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Navbar */
+.custom-navbar {
+  height: 54px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e3e3e3;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Keep both icons visible in mobile view */
+.menu-icon,
+.search-icon {
+  font-size: 20px;
+  cursor: pointer;
+  color: #333;
+}
+
+/* Make sure icons are spaced properly */
+.custom-navbar .menu-icon {
+  margin-right: 10px;
+}
+
+.custom-navbar .search-icon {
+  margin-left: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .custom-navbar {
+    left: 0 !important;
+    width: 100% !important;
+    padding: 0 1rem;
+  }
+
+  .main-area {
+    margin-left: 0 !important;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 54px;
+    left: 0;
+    width: 240px !important;
+    height: calc(100vh - 54px);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+}
+
+.sidebar.collapsed .nav-link {
+  justify-content: center;
+  text-align: center;
+  padding: 12px 0;
+}
+
+.sidebar.collapsed .nav-link span,
+.sidebar.collapsed .nav-link .text {
+  display: none;
+}
+
+.sidebar .nav-link {
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.sidebar .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+.logout-btn {
+  padding: 14px 18px;
+  background-color: #ff4d4f; /* red shade */
+  border-radius: 8px;
+  font-size: 17px;
+  transition: background 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: #e04345; /* darker on hover */
+}
+
+
+
+
+
