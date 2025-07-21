@@ -53,43 +53,43 @@ const ProcessList = () => {
 
 
   const exportToExcel = () => {
-  const worksheet = XLSX.utils.json_to_sheet(filteredLogs);
-  const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, worksheet, "PressLogs"); // ✅ Fixed line
-  XLSX.writeFile(workbook, "PressLogs.xlsx");
-};
+    const worksheet = XLSX.utils.json_to_sheet(filteredLogs);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "PressLogs"); // ✅ Fixed line
+    XLSX.writeFile(workbook, "PressLogs.xlsx");
+  };
 
 
   const exportToPDF = () => {
-  const doc = new jsPDF();
-  const tableColumn = [
-    "#", "Pressman", "Article", "Qty", "Add On", "Add On Article",
-    "Total", "Start", "Finish", "Comp.", "Pressed", "Bal"
-  ];
-  const tableRows = filteredLogs.map((log, index) => [
-    index + 1,
-    log.pressman,
-    log.article,
-    log.qty,
-    log.add_on,
-    log.add_on_article,
-    +log.qty + +log.add_on || "-",
-    log.start_time,
-    log.finish_time || "-",
-    log.comp_qty,
-    log.pressed_qty,
-    log.balance_qty
-  ]);
+    const doc = new jsPDF();
+    const tableColumn = [
+      "#", "Pressman", "Article", "Qty", "Add On", "Add On Article",
+      "Total", "Start", "Finish", "Comp.", "Pressed", "Bal"
+    ];
+    const tableRows = filteredLogs.map((log, index) => [
+      index + 1,
+      log.pressman,
+      log.article,
+      log.qty,
+      log.add_on,
+      log.add_on_article,
+      +log.qty + +log.add_on || "-",
+      log.start_time,
+      log.finish_time || "-",
+      log.comp_qty,
+      log.pressed_qty,
+      log.balance_qty
+    ]);
 
-  autoTable(doc, {
-    head: [tableColumn],
-    body: tableRows,
-    margin: { top: 20 },
-    styles: { fontSize: 8 },
-  });
+    autoTable(doc, {
+      head: [tableColumn],
+      body: tableRows,
+      margin: { top: 20 },
+      styles: { fontSize: 8 },
+    });
 
-  doc.save("PressLogs.pdf");
-};
+    doc.save("PressLogs.pdf");
+  };
 
 
 
@@ -109,19 +109,19 @@ const ProcessList = () => {
       </div>
 
       <div className="flex gap-4 mb-4">
-  <button
-    onClick={exportToExcel}
-    className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-  >
-    📥 Export to Excel
-  </button>
-  <button
-    onClick={exportToPDF}
-    className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
-  >
-    📄 Export to PDF
-  </button>
-</div>
+        <button
+          onClick={exportToExcel}
+          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+        >
+          📥 Export to Excel
+        </button>
+        <button
+          onClick={exportToPDF}
+          className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+        >
+          📄 Export to PDF
+        </button>
+      </div>
 
       <div className="overflow-x-auto border rounded-xl shadow">
         <table className="min-w-full bg-white text-sm">
@@ -151,8 +151,18 @@ const ProcessList = () => {
                 <td className="py-2 px-4 border">{log.add_on}</td>
                 <td className="py-2 px-4 border">{log.add_on_article}</td>
                 <td className="py-2 px-4 border">{+log.qty + +log.add_on || "-"}</td>
-                <td className="py-2 px-4 border">{log.start_time}</td>
-                <td className="py-2 px-4 border">{log.finish_time || "-"}</td>
+                <td className="py-2 px-4 border"> {new Date(log.start_time).toLocaleDateString()} <br /> {new Date(log.start_time).toLocaleTimeString()} </td>
+                <td className="py-2 px-4 border">
+                  {log.finish_time
+                    ? (
+                      <>
+                        {new Date(log.finish_time).toLocaleDateString()} <br />
+                        {new Date(log.finish_time).toLocaleTimeString()}
+                      </>
+                    )
+                    : "-"
+                  }
+                </td>
                 <td className="py-2 px-4 border">{log.comp_qty}</td>
                 <td className="py-2 px-4 border">{log.pressed_qty}</td>
                 <td className="py-2 px-4 border">{log.balance_qty}</td>
@@ -176,8 +186,8 @@ const ProcessList = () => {
             <button
               key={page}
               className={`px-4 py-2 rounded-md border ${currentPage === page
-                  ? "bg-indigo-600 text-white"
-                  : "bg-white text-gray-700 hover:bg-gray-100"
+                ? "bg-indigo-600 text-white"
+                : "bg-white text-gray-700 hover:bg-gray-100"
                 }`}
               onClick={() => handlePageChange(page)}
             >
