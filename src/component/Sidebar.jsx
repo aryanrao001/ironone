@@ -73,7 +73,7 @@ const Sidebar = ({ isOpen, isMobile }) => {
             <li className="nav-item mb-2">
               <Link to="/dashboard/titlemanager" className="nav-link text-white fs-6 d-flex align-items-center">
                 <FaPage4 size={iconSize} className="me-3" />
-                {isOpen && 'Title'}
+                {isOpen && 'Article'}
               </Link>
             </li>
             <li className="nav-item mb-2">

@@ -7,7 +7,7 @@ import { FaEnvelope, FaLock, FaUserShield } from 'react-icons/fa';
 const Login = () => {
   const navigate = useNavigate();
   const [role, setRole] = useState('admin');
-  const [emailOrPhone, setEmailOrPhone] = useState('');
+  const [emailOrName, setEmailOrName] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
@@ -21,10 +21,10 @@ const Login = () => {
         ? `${baseUrl}/api/auth/login`
         : `${baseUrl}/api/user/login`;
 
-    const payload = {
-      email: emailOrPhone,
-      password,
-    };
+    const payload =
+      role === 'admin'
+        ? { email: emailOrName, password }
+        : { name: emailOrName, password };
 
     try {
       const res = await axios.post(endpoint, payload);
@@ -34,7 +34,6 @@ const Login = () => {
         localStorage.setItem('token', token);
         localStorage.setItem('role', user.role);
 
-        // Navigate based on role
         if (user.role === 'admin') {
           navigate('/dashboard');
         } else if (user.role === 'staff') {
@@ -63,7 +62,7 @@ const Login = () => {
               value={role}
               onChange={(e) => {
                 setRole(e.target.value);
-                setEmailOrPhone('');
+                setEmailOrName('');
               }}
               className="form-select"
             >
@@ -75,10 +74,10 @@ const Login = () => {
           <div className="input-group">
             <FaEnvelope className="input-icon" />
             <input
-              type="email"
-              placeholder="Enter Your Email"
-              value={emailOrPhone}
-              onChange={(e) => setEmailOrPhone(e.target.value)}
+              type={role === 'admin' ? 'email' : 'text'}
+              placeholder={role === 'admin' ? 'Enter Your Email' : 'Enter Your Name'}
+              value={emailOrName}
+              onChange={(e) => setEmailOrName(e.target.value)}
               required
             />
           </div>

@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import UpdatePressLogModal from "../component/UpdatePressLogModal";
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
 
 const AddPressLog = () => {
+
+
   const [pressmen, setPressmen] = useState([]);
   const [titles, setTitles] = useState([]);
   const [logs, setLogs] = useState([]);
@@ -67,7 +76,9 @@ const AddPressLog = () => {
     e.preventDefault();
 
     const now = new Date();
-    const start_time = now.toLocaleString("sv-SE").replace("T", " ");
+    const start_time = dayjs().tz('Asia/Kolkata').format('YYYY-MM-DD HH:mm:ss');
+
+    // const start_time = now.toLocaleString("sv-SE").replace("T", " ");
 
     // const start_time = new Date().toISOString().slice(0, 19).replace("T", " ");
     const payload = {
@@ -220,7 +231,7 @@ const AddPressLog = () => {
                   <td className="border px-3 py-1">
                     {new Date(log.start_time).toLocaleString()}
                   </td>
-                  <td className="border px-3 py-1">{log.qty}</td>
+                  <td className="border px-3 py-1">{log.qty + log.add_on }</td>
 
                   <td className="border px-3 py-1 text-center">
                     <button onClick={() => openStopModal(log)} className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700">

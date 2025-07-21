@@ -5,11 +5,7 @@ const CreateUser = () => {
   const [staffList, setStaffList] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
     password: "",
-    phone: "",
-    location: "",
-    address: "",
     role: "staff",
   });
 
@@ -47,11 +43,7 @@ const CreateUser = () => {
       fetchStaff();
       setFormData({
         name: "",
-        email: "",
         password: "",
-        phone: "",
-        location: "",
-        address: "",
         role: "staff",
       });
     } catch (err) {
@@ -80,11 +72,7 @@ const CreateUser = () => {
       >
         {[
           ["name", "Name"],
-          ["email", "Email"],
           ["password", "Password"],
-          ["phone", "Phone"],
-          ["location", "Location"],
-          ["address", "Address"],
         ].map(([key, label]) => (
           <input
             key={key}
@@ -122,22 +110,13 @@ const CreateUser = () => {
           <thead className="bg-gray-100 border-b">
             <tr>
               <th className="p-3">Name</th>
-              <th className="p-3">Email</th>
-              <th className="p-3">Phone</th>
-              <th className="p-3">Location</th>
-              <th className="p-3">Address</th>
               <th className="p-3">Role</th>
-              <th className="p-3">Actions</th>
             </tr>
           </thead>
           <tbody>
             {Array.isArray(staffList) && staffList.map((staff) => (
               <tr key={staff.id} className="border-b hover:bg-gray-50">
                 <td className="p-3">{staff.name}</td>
-                <td className="p-3">{staff.email}</td>
-                <td className="p-3">{staff.phone}</td>
-                <td className="p-3">{staff.location}</td>
-                <td className="p-3">{staff.address}</td>
                 <td className="p-3 capitalize">{staff.role}</td>
                 <td className="p-3">
                   <button
